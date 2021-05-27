@@ -38,7 +38,7 @@ public class UserService {
         return this.userRepository.save(user).toUserDto();
     }
 
-    public void deleteUser(String id) {
+    public void deleteUser(Long id) {
         this.userRepository.deleteById(id);
     }
 
