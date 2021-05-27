@@ -1,19 +1,21 @@
 version: '3'
 
 services:
-#  api:
-#    container_name: "compose-api"
-#    build:
-#      context: .
-#      dockerfile: Dockerfile.multi
-#    ports:
-#      - 8000:8080
-#    environment:
-#      DB_USER: sa
-#      DB_PASSWORD: password
-#      DB_NAME: compose-db
-#      DB_HOST: postgres_db
-#      DB_PORT: 5432
+  api:
+    container_name: "compose-api"
+    build:
+      context: .
+      dockerfile: Dockerfile.multi
+    ports:
+      - 8080:8080
+    environment:
+      DB_USER: jibberjabber
+      DB_PASSWORD: jibberjabber
+      DB_NAME: jibberjabberdb
+      DB_HOST: postgres_db
+      DB_PORT: 5432
+    depends_on:
+      - db
 
   db:
     container_name: postgres_db

@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
+@Entity()
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "user")
 public class User {
