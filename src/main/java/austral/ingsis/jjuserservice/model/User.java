@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 @Entity()
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "user")
+@Table(name = "jj_user")
 public class User {
 
     //TODO check if relation to post is missing in this side
