@@ -29,12 +29,14 @@ public class UserController {
         return new ResponseEntity<>(userDto, HttpStatus.CREATED);
     }
 
+    //TODO Login, return token in response, set-cookie header with refresh token = token, expiration of token, httpOnly FLAG
+
     @GetMapping(value = "")
     public ResponseEntity<List<UserDto>> getAllUsers( ) {
         List<UserDto> users = this.userService.getAllUsers();
         //TODO response headers
         return new ResponseEntity<>(users, HttpStatus.OK);
-    })
+    }
 
 //    @GetMapping(value = "/{id}")
 //    public ResponseEntity<UserDto> getUserById(@PathVariable("id") String id ) {
@@ -51,7 +53,6 @@ public class UserController {
        //id needed?
        user.setUsername(createUserDto.getUsername());
        user.setPassword(createUserDto.getPassword());
-        user.setEmail(createUserDto.getEmail());
         user.setFirstName(createUserDto.getFirstName());
         user.setLastName(createUserDto.getLastName());
         return user;

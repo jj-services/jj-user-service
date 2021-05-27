@@ -1,68 +1,64 @@
 package austral.ingsis.jjuserservice.model;
 
 import austral.ingsis.jjuserservice.dto.UserDto;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.validation.constraints.Size;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "user")
 public class User {
 
     //TODO check if relation to post is missing in this side
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceUserGenerator")
+    @GenericGenerator(
+            name = "sequenceUserGenerator",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @Parameter(name = "sequence_name", value = "social_network_user_sequence"),
+                    @Parameter(name = "initial_value", value = "1000"),
+                    @Parameter(name = "increment_size", value = "1")
+            }
+    )
+    private Long id;
 
     //for login
-    @Column(name = "username")
-    private String username;
-
-    @Column(name = "password")
-    private String password;
-
-    //profile data
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
+    @Size(max = 100)
     private String firstName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
+    @Size(max = 100)
     private String lastName;
 
+    @Column(nullable = false)
+    @Size(max = 100)
+    private String username;
 
-    public String getId() {
+    @Column(nullable = false)
+    @Size(max = 100)
+    private String password;
+
+    @CreatedDate
+    @Column(name = "created_date", nullable = false)
+    private LocalDateTime createdDate;
+
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getFirstName() {
@@ -81,7 +77,22 @@ public class User {
         this.lastName = lastName;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
     public UserDto toUserDto() {
-        return new UserDto(this.id, this.username, this.email, this.firstName, this.lastName);
+        return new UserDto(this.id, this.username,  this.firstName, this.lastName);
     }
 }
