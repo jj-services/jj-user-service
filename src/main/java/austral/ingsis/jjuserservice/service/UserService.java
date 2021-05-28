@@ -30,7 +30,7 @@ public class UserService {
 
     public List<UserDto> getAllUsers() {
         List<User> users = this.userRepository.findAll();
-        // communicate with post service to append all posts to object
+        //TODO communicate with post service to append all posts to object
         return users.stream().map(User::toUserDto).collect(Collectors.toList());
     }
 

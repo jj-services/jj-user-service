@@ -1,6 +1,7 @@
 package austral.ingsis.jjuserservice.config;
 
 import austral.ingsis.jjuserservice.auth.CookieAuthenticationFilter;
+import austral.ingsis.jjuserservice.auth.UserAuthProvider;
 import austral.ingsis.jjuserservice.auth.UserAuthenticationEntryPoint;
 import austral.ingsis.jjuserservice.auth.UsernamePasswordAuthFilter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,7 +18,12 @@ import static org.springframework.http.HttpMethod.POST;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private UserAuthenticationEntryPoint userAuthenticationEntryPoint;
+    private final UserAuthenticationEntryPoint userAuthenticationEntryPoint;
+
+    public SecurityConfig(UserAuthenticationEntryPoint userAuthenticationEntryPoint,
+                          UserAuthProvider userAuthProvider) {
+        this.userAuthenticationEntryPoint = userAuthenticationEntryPoint;
+    }
     @Override
     protected void configure(HttpSecurity http) throws  Exception {
         http
@@ -31,6 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests()
                 .antMatchers(GET,"/users" )
                 .authenticated()
-                .and().authorizeRequests().antMatchers(POST,"/auth/login" ).permitAll();
+                .and().authorizeRequests()
+                .antMatchers(POST,"/auth/login" ).permitAll()
+                .antMatchers(POST, "/users").permitAll();
+
     }
 }

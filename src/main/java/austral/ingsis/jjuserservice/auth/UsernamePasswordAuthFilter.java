@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class UsernamePasswordAuthFilter extends OncePerRequestFilter {
 
-    private final String LOGIN_URL = "/v1/login";
+    private final String LOGIN_URL = "/auth/login";
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @Override

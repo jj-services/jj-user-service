@@ -36,14 +36,15 @@ public class AuthenticationService {
 
     @Transactional
     public UserDto authenticate(LoginDto loginDto) {
+        //TODO optional handling: .get() will crash if empty value
         User user = userRepository.findByUsername(loginDto.getUsername()).get();
 
-          //TODO optional handling
           if (passwordEncoder.matches(CharBuffer.wrap(loginDto.getPassword()), user.getPassword())) {
               return new UserDto(user.getId(),
                       user.getFirstName(),
                       user.getLastName(),
-                      user.getUsername());
+                      user.getUsername(),
+                      user.getEmail());
           }
 
           //TODO take this out
@@ -51,17 +52,20 @@ public class AuthenticationService {
     }
 
     public UserDto findByUsername(String username) {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("Token not found"));
+        //TODO optional handling: .get() will crash if empty value
+        User user = userRepository.findByUsername(username).get();
+//                .orElseThrow(() -> new RuntimeException("Token not found"));
+
         return new UserDto(user.getId(),
                 user.getFirstName(),
                 user.getLastName(),
-                user.getUsername());
+                user.getUsername(),
+                user.getEmail());
     }
 
 
     public String createToken(UserDto user) {
-        return user.getId() + "&" + user.getLogin() + "&" + calculateHmac(user);
+        return user.getId() + "&" + user.getUsername() + "&" + calculateHmac(user);
     }
 
     public UserDto findByToken(String token){
@@ -79,7 +83,7 @@ public class AuthenticationService {
 
     private String calculateHmac(UserDto user) {
         byte[] secretKeyBytes = Objects.requireNonNull(secretKey).getBytes(StandardCharsets.UTF_8);
-        byte[] valueBytes = Objects.requireNonNull(user.getId() + "&" + user.getLogin()).getBytes(StandardCharsets.UTF_8);
+        byte[] valueBytes = Objects.requireNonNull(user.getId() + "&" + user.getUsername()).getBytes(StandardCharsets.UTF_8);
 
         try {
             Mac mac = Mac.getInstance("HmacSHA512");
