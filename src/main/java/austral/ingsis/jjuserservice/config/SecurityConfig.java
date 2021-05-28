@@ -10,6 +10,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+import static org.springframework.http.HttpMethod.DELETE;
+import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
+
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -25,7 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().logout().deleteCookies(CookieAuthenticationFilter.COOKIE_NAME)
                 .and().authorizeRequests()
-                .antMatchers()
-                .authenticated();
+                .antMatchers(GET,"/users" )
+                .authenticated()
+                .and().authorizeRequests().antMatchers(POST,"/auth/login" ).permitAll();
     }
 }
