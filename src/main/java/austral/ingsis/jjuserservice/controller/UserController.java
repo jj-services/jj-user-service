@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController(value = "/users") //will work?
+@RestController()
 public class UserController {
 
     private UserService userService;
@@ -21,21 +21,21 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping(value = "")
+    @PostMapping(value = "/users")
     public ResponseEntity<UserDto> registerUser(@RequestBody CreateUserDto createUserDto) {
         UserDto userDto = this.userService.saveUser(this.mapDtoToModel(createUserDto));
         //TODO see how to do 500 response with try catch
         return new ResponseEntity<>(userDto, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "")
+    @GetMapping(value = "/users")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List<UserDto> users = this.userService.getAllUsers();
         //TODO response headers
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-//    @GetMapping(value = "/{id}")
+//    @GetMapping(value = "/users/{id}")
 //    public ResponseEntity<UserDto> getUserById(@PathVariable("id") String id ) {
 //        UserDto user = this.userService.getUserById();
 //        //TODO response headers

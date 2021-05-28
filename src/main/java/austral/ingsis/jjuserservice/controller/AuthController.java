@@ -19,7 +19,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-@Controller(value = "/auth")
+@Controller()
 public class AuthController {
     private final UserService userService;
     private final AuthenticationService authenticationService;
@@ -29,7 +29,7 @@ public class AuthController {
         this.authenticationService = authenticationService;
     }
 
-    @PostMapping(value = "/login")
+    @PostMapping(value = "/auth/login")
     public ResponseEntity<String> login(@AuthenticationPrincipal LoginDto loginDto, HttpServletResponse response) {
         Cookie cookie = new Cookie(CookieAuthenticationFilter.COOKIE_NAME, authenticationService.createToken(loginDto));
         cookie.setHttpOnly(true);
@@ -41,7 +41,7 @@ public class AuthController {
         return ResponseEntity.ok(loginDto.getUsername());
     }
 
-    @PostMapping(value = "/logout")
+    @PostMapping(value = "/auth/logout")
     public ResponseEntity<Void> logout(HttpServletRequest request) {
         SecurityContextHolder.clearContext();
         Optional<Cookie> authCookie = Stream.of(Optional.ofNullable(request.getCookies()).orElse(new Cookie[0]))
