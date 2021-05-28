@@ -1,6 +1,7 @@
 package austral.ingsis.jjuserservice.controller;
 
 import austral.ingsis.jjuserservice.auth.CookieAuthenticationFilter;
+import austral.ingsis.jjuserservice.dto.LoginDto;
 import austral.ingsis.jjuserservice.dto.UserDto;
 import austral.ingsis.jjuserservice.service.AuthenticationService;
 import austral.ingsis.jjuserservice.service.UserService;
@@ -29,17 +30,18 @@ public class AuthController {
     }
 
     @PostMapping(value = "/login")
-    public ResponseEntity<UserDto> login(@AuthenticationPrincipal UserDto userDto, HttpServletResponse response) {
-        Cookie cookie = new Cookie(CookieAuthenticationFilter.COOKIE_NAME, authenticationService.createToken(userDto));
+    public ResponseEntity<String> login(@AuthenticationPrincipal LoginDto loginDto, HttpServletResponse response) {
+        Cookie cookie = new Cookie(CookieAuthenticationFilter.COOKIE_NAME, authenticationService.createToken(loginDto));
         cookie.setHttpOnly(true);
         cookie.setSecure(true);
         cookie.setMaxAge(Duration.of(1, ChronoUnit.DAYS).toSecondsPart());
         cookie.setPath("/");
         response.addCookie(cookie);
-        return ResponseEntity.ok(userDto);
+        //TODO change this
+        return ResponseEntity.ok(loginDto.getUsername());
     }
 
-    @PostMapping(value = "logout")
+    @PostMapping(value = "/logout")
     public ResponseEntity<Void> logout(HttpServletRequest request) {
         SecurityContextHolder.clearContext();
         Optional<Cookie> authCookie = Stream.of(Optional.ofNullable(request.getCookies()).orElse(new Cookie[0]))

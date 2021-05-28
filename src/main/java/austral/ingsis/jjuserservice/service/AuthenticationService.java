@@ -64,7 +64,9 @@ public class AuthenticationService {
     }
 
 
-    public String createToken(UserDto user) {
+    public String createToken(LoginDto loginDto) {
+        //TODO optional handling: .get() will crash if empty value
+       UserDto user = this.findByUsername(loginDto.getUsername());
         return user.getId() + "&" + user.getUsername() + "&" + calculateHmac(user);
     }
 
