@@ -1,11 +1,27 @@
 package austral.ingsis.jjuserservice.dto;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 public class CreateUserDto {
     //response should be id
+    @NotEmpty
+    @Size(min = 4, message = "username should have at least 4 characters")
     private String username;
+
+    @NotEmpty
+    @Size(min = 6, message = "password should have at least 6 characters")
     private String password;
+
+    @NotEmpty
+    @Email
     private String email;
+
+    @NotEmpty
     private String firstName;
+
+    @NotEmpty
     private String lastName;
 
     public String getUsername() {

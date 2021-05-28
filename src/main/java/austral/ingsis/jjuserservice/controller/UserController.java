@@ -25,7 +25,6 @@ public class UserController {
     public ResponseEntity<UserDto> registerUser(@RequestBody CreateUserDto createUserDto) {
         UserDto userDto = this.userService.saveUser(this.mapDtoToModel(createUserDto));
         //TODO response headers
-        //TODO add more validations like bad request
         return new ResponseEntity<>(userDto, HttpStatus.CREATED);
     }
 
@@ -51,6 +50,7 @@ public class UserController {
     private User mapDtoToModel(CreateUserDto createUserDto) {
        User user = new User();
        //id needed?
+        user.setEmail(createUserDto.getEmail());
        user.setUsername(createUserDto.getUsername());
        user.setPassword(createUserDto.getPassword());
         user.setFirstName(createUserDto.getFirstName());

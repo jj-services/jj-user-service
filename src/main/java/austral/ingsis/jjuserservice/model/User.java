@@ -16,8 +16,6 @@ import java.time.LocalDateTime;
 @Table(name = "jj_user")
 public class User {
 
-    //TODO check if relation to post is missing in this side
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceUserGenerator")
     @GenericGenerator(
@@ -48,10 +46,31 @@ public class User {
     @Size(max = 100)
     private String password;
 
+    @Column(nullable = false)
+    @Size(max = 100)
+    private String email;
+
+    //necesario el created at?
+
     @CreatedDate
     @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate;
 
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public Long getId() {
         return id;
