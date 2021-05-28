@@ -4,7 +4,7 @@ spring:
   datasource:
     platform: postgres
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://db:5432/jibberjabberdb
+    url: jdbc:postgresql://localhost:5432/jibberjabberdb
     username: jibberjabber
     password: jibberjabber
     initialization-mode: always

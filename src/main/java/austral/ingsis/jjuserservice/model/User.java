@@ -52,17 +52,10 @@ public class User {
 
     //necesario el created at?
 
-    @CreatedDate
-    @Column(name = "created_date", nullable = false)
-    private LocalDateTime createdDate;
+//    @CreatedDate
+//    @Column(name = "created_date", nullable = false)
+//    private LocalDateTime createdDate;
 
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
-    }
 
     public String getEmail() {
         return email;

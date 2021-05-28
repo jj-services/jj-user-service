@@ -10,6 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -29,8 +30,8 @@ public class AuthController {
         this.authenticationService = authenticationService;
     }
 
-    @PostMapping(value = "/auth/login")
-    public ResponseEntity<String> login(@AuthenticationPrincipal LoginDto loginDto, HttpServletResponse response) {
+    @PostMapping(value = "/login")
+    public ResponseEntity<String> login(@AuthenticationPrincipal @RequestBody LoginDto loginDto, HttpServletResponse response) {
         Cookie cookie = new Cookie(CookieAuthenticationFilter.COOKIE_NAME, authenticationService.createToken(loginDto));
         cookie.setHttpOnly(true);
         cookie.setSecure(true);
