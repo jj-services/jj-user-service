@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Entity()
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "jj_user")
-public class User {
+public class UserDao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceUserGenerator")

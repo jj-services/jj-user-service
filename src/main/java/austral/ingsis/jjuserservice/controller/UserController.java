@@ -2,7 +2,7 @@ package austral.ingsis.jjuserservice.controller;
 
 import austral.ingsis.jjuserservice.dto.CreateUserDto;
 import austral.ingsis.jjuserservice.dto.UserDto;
-import austral.ingsis.jjuserservice.model.User;
+import austral.ingsis.jjuserservice.model.UserDao;
 import austral.ingsis.jjuserservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping(value = "/users")
+    @PostMapping(value = "/users/register")
     public ResponseEntity<UserDto> registerUser(@RequestBody CreateUserDto createUserDto) {
         UserDto userDto = this.userService.saveUser(this.mapDtoToModel(createUserDto));
         //TODO see how to do 500 response with try catch
@@ -45,8 +45,8 @@ public class UserController {
 
 
 
-    private User mapDtoToModel(CreateUserDto createUserDto) {
-       User user = new User();
+    private UserDao mapDtoToModel(CreateUserDto createUserDto) {
+       UserDao user = new UserDao();
        user.setEmail(createUserDto.getEmail());
        user.setUsername(createUserDto.getUsername());
        user.setPassword(createUserDto.getPassword());

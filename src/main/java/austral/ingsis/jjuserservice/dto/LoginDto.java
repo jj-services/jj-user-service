@@ -2,13 +2,21 @@ package austral.ingsis.jjuserservice.dto;
 
 public class LoginDto {
     private String username;
-    private char[] password;
+    private String password;
 
     public LoginDto() {
         super();
     }
 
-    public LoginDto(String username, char[] password) {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public LoginDto(String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -21,11 +29,4 @@ public class LoginDto {
         this.username = username;
     }
 
-    public char[] getPassword() {
-        return password;
-    }
-
-    public void setPassword(char[] password) {
-        this.password = password;
-    }
 }

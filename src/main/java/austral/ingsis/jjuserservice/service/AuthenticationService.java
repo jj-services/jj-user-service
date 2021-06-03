@@ -2,7 +2,7 @@ package austral.ingsis.jjuserservice.service;
 
 import austral.ingsis.jjuserservice.dto.LoginDto;
 import austral.ingsis.jjuserservice.dto.UserDto;
-import austral.ingsis.jjuserservice.model.User;
+import austral.ingsis.jjuserservice.model.UserDao;
 import austral.ingsis.jjuserservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,7 +37,7 @@ public class AuthenticationService {
     @Transactional
     public UserDto authenticate(LoginDto loginDto) {
         //TODO optional handling: .get() will crash if empty value
-        User user = userRepository.findByUsername(loginDto.getUsername()).get();
+        UserDao user = userRepository.findByUsername(loginDto.getUsername()).get();
 
           if (passwordEncoder.matches(CharBuffer.wrap(loginDto.getPassword()), user.getPassword())) {
               return new UserDto(user.getId(),
@@ -53,7 +53,7 @@ public class AuthenticationService {
 
     public UserDto findByUsername(String username) {
         //TODO optional handling: .get() will crash if empty value
-        User user = userRepository.findByUsername(username).get();
+        UserDao user = userRepository.findByUsername(username).get();
 //                .orElseThrow(() -> new RuntimeException("Token not found"));
 
         return new UserDto(user.getId(),

@@ -1,7 +1,7 @@
 package austral.ingsis.jjuserservice.service;
 
 import austral.ingsis.jjuserservice.dto.UserDto;
-import austral.ingsis.jjuserservice.model.User;
+import austral.ingsis.jjuserservice.model.UserDao;
 import austral.ingsis.jjuserservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class UserService {
     @PersistenceContext
     private EntityManager entityManager; //might not be needed
     private UserRepository userRepository;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public UserService(UserRepository userRepository, BCryptPasswordEncoder encoder) {
@@ -29,12 +29,13 @@ public class UserService {
     }
 
     public List<UserDto> getAllUsers() {
-        List<User> users = this.userRepository.findAll();
+        List<UserDao> users = this.userRepository.findAll();
         //TODO communicate with post service to append all posts to object
-        return users.stream().map(User::toUserDto).collect(Collectors.toList());
+        return users.stream().map(UserDao::toUserDto).collect(Collectors.toList());
     }
 
-    public UserDto saveUser(User user) {
+    public UserDto saveUser(UserDao user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return this.userRepository.save(user).toUserDto();
     }
 
