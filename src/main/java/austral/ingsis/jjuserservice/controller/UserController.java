@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController()
+@RequestMapping("/api/users")
 public class UserController {
 
     private UserService userService;
@@ -21,14 +22,14 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping(value = "/users/register")
+    @PostMapping(value = "/register")
     public ResponseEntity<UserDto> registerUser(@RequestBody CreateUserDto createUserDto) {
         UserDto userDto = this.userService.saveUser(this.mapDtoToModel(createUserDto));
         //TODO see how to do 500 response with try catch
         return new ResponseEntity<>(userDto, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/users")
+    @GetMapping(value = "")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List<UserDto> users = this.userService.getAllUsers();
         //TODO response headers

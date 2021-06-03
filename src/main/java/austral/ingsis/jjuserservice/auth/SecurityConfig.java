@@ -29,8 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws  Exception {
         http.authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/login",  "/users/register" ).anonymous()
-                .antMatchers(HttpMethod.GET,"/users", "/users/**").authenticated()
+                .antMatchers(HttpMethod.POST,"/api/login",  "/api/users/register" ).anonymous()
+                .antMatchers(HttpMethod.GET,"/api/users", "/users/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
