@@ -56,6 +56,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     private Optional<String> getTokenFromCookies(Cookie[] cookies) {
+        if (cookies == null)
+            return Optional.empty();
         return Arrays.stream(cookies)
                 .filter(c -> SecurityConstants.COOKIE_NAME.equals(c.getName()))
                 .map(Cookie::getValue)
