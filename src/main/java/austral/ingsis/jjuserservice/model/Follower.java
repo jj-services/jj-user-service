@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 @Entity()
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "followers")
-public class Followers {
+public class Follower {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceUserGenerator")
