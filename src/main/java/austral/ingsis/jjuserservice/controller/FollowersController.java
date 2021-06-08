@@ -2,6 +2,7 @@ package austral.ingsis.jjuserservice.controller;
 
 import austral.ingsis.jjuserservice.dto.FollowerDto;
 import austral.ingsis.jjuserservice.dto.UserDto;
+import austral.ingsis.jjuserservice.exception.FollowerNotFoundException;
 import austral.ingsis.jjuserservice.model.Follower;
 import austral.ingsis.jjuserservice.repository.FollowersRepository;
 import austral.ingsis.jjuserservice.service.FollowersService;
@@ -30,10 +31,21 @@ public class FollowersController {
         return new ResponseEntity<>(resultDto, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity<List<UserDto>> followedUsersForUser(@PathVariable Long id) {
         List<UserDto> followedUsersForUser = this.followersService.getFollowedUsersForUser(id);
         return new ResponseEntity<>(followedUsersForUser, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "")
+    public ResponseEntity<String> unfollowUser(FollowerDto followerDto) {
+        try {
+            this.followersService.unfollowUser(this.mapDtoToModel(followerDto));
+            return new ResponseEntity<>("User of id: " + followerDto.getUserId() +
+                    "unfollowed user of id: " + followerDto.getFollowingId(), HttpStatus.OK);
+        } catch (FollowerNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     private Follower mapDtoToModel(FollowerDto followerDto) {

@@ -2,6 +2,7 @@ package austral.ingsis.jjuserservice.service;
 
 import austral.ingsis.jjuserservice.dto.FollowerDto;
 import austral.ingsis.jjuserservice.dto.UserDto;
+import austral.ingsis.jjuserservice.exception.UserNotFoundException;
 import austral.ingsis.jjuserservice.model.Follower;
 import austral.ingsis.jjuserservice.repository.FollowersRepository;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,19 @@ public class FollowersService {
                 .filter(follower -> follower.getUserId().equals(id))
                 .map(follower -> this.userService.getUserById(follower.getUserId()))
                 .collect(Collectors.toList());
+    }
+
+
+    //TODO FIX ME es un asco esta api
+    public void unfollowUser(Follower follower) {
+        Follower toDelete = this.followersRepository.findAll().stream()
+                .filter(f -> (f.getUserId().equals(follower.getUserId()) && f.getFollowingId().equals(follower.getFollowingId())))
+                .collect(Collectors.toList()).get(0);
+
+        if(toDelete != null) {
+            this.followersRepository.delete(follower);
+        }
+
+        throw new UserNotFoundException("Follower entity not found.");
     }
 }
