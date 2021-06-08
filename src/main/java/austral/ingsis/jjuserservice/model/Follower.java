@@ -1,5 +1,6 @@
 package austral.ingsis.jjuserservice.model;
 
+import austral.ingsis.jjuserservice.dto.FollowerDto;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -52,5 +53,9 @@ public class Follower {
 
     public void setFollowingId(Long followingId) {
         this.followingId = followingId;
+    }
+
+    public FollowerDto toFollowerDto() {
+        return new FollowerDto(this.getUserId(), this.getFollowingId());
     }
 }
