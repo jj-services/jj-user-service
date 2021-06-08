@@ -104,6 +104,7 @@ public class UserDao {
     public void setPassword(String password) {
         this.password = password;
     }
+
     public UserDto toUserDto() {
         return new UserDto(this.id, this.firstName,  this.lastName, this.username, this.email);
     }
