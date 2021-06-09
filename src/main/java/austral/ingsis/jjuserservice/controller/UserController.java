@@ -30,14 +30,12 @@ public class UserController {
     @PostMapping(value = "/register")
     public ResponseEntity<UserDto> registerUser(@RequestBody CreateUserDto createUserDto) {
         UserDto userDto = this.userService.saveUser(this.mapDtoToModel(createUserDto));
-        //TODO see how to do 500 response with try catch
         return new ResponseEntity<>(userDto, HttpStatus.CREATED);
     }
 
     @GetMapping(value = "")
     public ResponseEntity<List<UserDto>> getAllUsers() {
         List<UserDto> users = this.userService.getAllUsers();
-        //TODO response headers
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
