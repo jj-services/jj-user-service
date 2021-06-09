@@ -8,6 +8,7 @@ import austral.ingsis.jjuserservice.repository.FollowersRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,13 +37,11 @@ public class FollowersService {
 
     //TODO FIX ME es un asco esta api
     public void unfollowUser(Follower follower) {
-        Follower toDelete = this.followersRepository.findAll().stream()
+        Optional<Follower> toDelete = this.followersRepository.findAll().stream()
                 .filter(f -> (f.getUserId().equals(follower.getUserId()) && f.getFollowingId().equals(follower.getFollowingId())))
-                .collect(Collectors.toList()).get(0);
+                .findFirst();
 
-        if(toDelete != null) {
-            this.followersRepository.delete(follower);
-        }
+        toDelete.ifPresent(value -> this.followersRepository.deleteById(value.getId()));
 
         throw new UserNotFoundException("Follower entity not found.");
     }
