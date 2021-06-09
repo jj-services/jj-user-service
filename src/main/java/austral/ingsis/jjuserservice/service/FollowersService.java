@@ -28,7 +28,7 @@ public class FollowersService {
     }
 
     public List<UserDto> getFollowedUsersForUser(Long id) {
-       return this.followersRepository.findAll().stream()
+        return this.followersRepository.findAll().stream()
                 .filter(follower -> follower.getUserId().equals(id))
                 .map(follower -> this.userService.getUserById(follower.getUserId()))
                 .collect(Collectors.toList());
@@ -41,8 +41,8 @@ public class FollowersService {
                 .filter(f -> (f.getUserId().equals(follower.getUserId()) && f.getFollowingId().equals(follower.getFollowingId())))
                 .findFirst();
 
-        toDelete.ifPresent(value -> this.followersRepository.deleteById(value.getId()));
-
-        throw new UserNotFoundException("Follower entity not found.");
+        toDelete.ifPresentOrElse(value -> this.followersRepository.deleteById(value.getId()),
+                () -> { throw new UserNotFoundException("Follower entity not found.");}
+        );
     }
 }
