@@ -41,12 +41,13 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @PutMapping()
+    @PutMapping(value = "")
     public ResponseEntity<UserDto> updateUser(@RequestBody UpdateUserDto dto) {
         try {
             UserDto updated = this.userService.updateUser(dto);
             return ResponseEntity.ok(updated);
         } catch (UserNotFoundException e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.notFound().build();
         }
     }
@@ -57,7 +58,8 @@ public class UserController {
             UserDto user = this.userService.getUserById(id);
             return new ResponseEntity<>(user, HttpStatus.OK);
         } catch (UserNotFoundException e) {
-           return ResponseEntity.notFound().build();
+            System.out.println(e.getMessage());
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -67,6 +69,7 @@ public class UserController {
             this.userService.deleteUser(id);
             return new ResponseEntity<>("Deleted user of id: " + id + ".", HttpStatus.OK);
         } catch (UserNotFoundException e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.notFound().build();
         }
     }
