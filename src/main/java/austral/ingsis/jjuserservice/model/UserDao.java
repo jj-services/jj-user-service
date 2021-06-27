@@ -3,13 +3,11 @@ package austral.ingsis.jjuserservice.model;
 import austral.ingsis.jjuserservice.dto.UserDto;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.validation.constraints.Size;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity()
 @EntityListeners(AuditingEntityListener.class)
@@ -49,12 +47,6 @@ public class UserDao {
     @Column(nullable = false)
     @Size(max = 100)
     private String email;
-
-    //necesario el created at?
-
-//    @CreatedDate
-//    @Column(name = "created_date", nullable = false)
-//    private LocalDateTime createdDate;
 
 
     public String getEmail() {

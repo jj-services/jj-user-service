@@ -7,6 +7,7 @@ import austral.ingsis.jjuserservice.model.UserDao;
 import austral.ingsis.jjuserservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -80,5 +81,11 @@ public class UserService {
        }
 
        return optUser.get().toUserDto();
+    }
+
+    public UserDto getUserByUsername(String username) {
+        UserDao user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+      return user.toUserDto();
     }
 }
