@@ -26,7 +26,7 @@ public class FollowersController {
     }
 
     @PostMapping(value = "")
-    public ResponseEntity<FollowerDto> followUser(FollowerDto followerDto) {
+    public ResponseEntity<FollowerDto> followUser(@RequestBody FollowerDto followerDto) {
         FollowerDto resultDto = this.followersService.followUser(this.mapDtoToModel(followerDto));
         return new ResponseEntity<>(resultDto, HttpStatus.CREATED);
     }
@@ -38,7 +38,7 @@ public class FollowersController {
     }
 
     @DeleteMapping(value = "")
-    public ResponseEntity<String> unfollowUser(FollowerDto followerDto) {
+    public ResponseEntity<String> unfollowUser(@RequestBody FollowerDto followerDto) {
         try {
             this.followersService.unfollowUser(this.mapDtoToModel(followerDto));
             return new ResponseEntity<>("User of id: " + followerDto.getUserId() +
