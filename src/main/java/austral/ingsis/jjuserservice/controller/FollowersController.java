@@ -31,6 +31,7 @@ public class FollowersController {
         return new ResponseEntity<>(resultDto, HttpStatus.CREATED);
     }
 
+    //returns users followed by id
     @GetMapping(value = "/{id}")
     public ResponseEntity<List<UserDto>> followedUsersForUser(@PathVariable Long id) {
         List<UserDto> followedUsersForUser = this.followersService.getFollowedUsersForUser(id);

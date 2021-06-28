@@ -29,8 +29,8 @@ public class FollowersService {
 
     public List<UserDto> getFollowedUsersForUser(Long id) {
         return this.followersRepository.findAll().stream()
-                .filter(follower -> follower.getUserId().equals(id))
-                .map(follower -> this.userService.getUserById(follower.getUserId()))
+                .filter(relation -> relation.getUserId().equals(id))
+                .map(relation -> this.userService.getUserById(relation.getUserId()))
                 .collect(Collectors.toList());
     }
 

@@ -38,7 +38,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.csrf().disable();
         http.cors().configurationSource(corsConfigurationSource());
-
+//
+//        http.logout(logout -> logout
+//                .logoutUrl("/api/logout")
+//                .invalidateHttpSession(true)
+//                .deleteCookies(SecurityConstants.COOKIE_NAME));
     }
 
     CorsConfigurationSource corsConfigurationSource() {

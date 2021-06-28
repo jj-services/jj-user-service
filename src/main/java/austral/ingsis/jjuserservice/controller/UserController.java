@@ -18,8 +18,10 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.net.http.HttpResponse;
 import java.util.List;
 
 @RestController()
@@ -92,6 +94,13 @@ public class UserController {
 
         }
     }
+
+    @PostMapping(value = "/logout")
+    public void logout(HttpServletResponse response) {
+        response.setHeader("Set-Cookie",  "" + "; HttpOnly; Secure=true; SameSite=strict; Path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT");
+    }
+
+
 
     private UserDao mapDtoToModel(CreateUserDto createUserDto) {
         UserDao user = new UserDao();
