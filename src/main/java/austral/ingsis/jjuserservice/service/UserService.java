@@ -67,6 +67,8 @@ public class UserService {
 
         if(dto.getPassword() != null && !dto.getPassword().isEmpty()) {
             toSave.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
+        }else {
+            toSave.setPassword(user.get().getPassword());
         }
 
         return this.userRepository.save(toSave).toUserDto();
