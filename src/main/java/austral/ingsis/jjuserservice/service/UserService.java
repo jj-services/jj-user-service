@@ -92,7 +92,10 @@ public class UserService {
       return user.toUserDto();
     }
 
-    public List<UserDto> searchByUsernamePattern(String pattern, String loggedUser) {
-        return userRepository.findByUsernamePattern(pattern).stream().filter(found -> !found.getUsername().equals(loggedUser)).map(UserDao::toUserDto).collect(Collectors.toList());
+    public List<UserDto> searchByUsernamePattern(String username, String loggedUser) {
+        return userRepository.findByUsernameStartingWith(username).stream()
+                .filter(found -> !found.getUsername().equals(loggedUser))
+                    .map(UserDao::toUserDto).collect(Collectors.toList());
+//        return null;
     }
 }

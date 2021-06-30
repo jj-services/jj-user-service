@@ -11,6 +11,6 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<UserDao, Long> {
     Optional<UserDao> getUserById(Long id);
     Optional<UserDao> findByUsername(String username);
-    List<UserDao> findByUsernamePattern(String username);
+    List<UserDao> findByUsernameStartingWith(String username);
 
 }
