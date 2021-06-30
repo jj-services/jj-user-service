@@ -100,7 +100,12 @@ public class UserController {
         response.setHeader("Set-Cookie", "auth_by_cookie=" + "" + "; HttpOnly; Secure=true; SameSite=strict; Path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT");
     }
 
-
+    @GetMapping(value = "/search")
+    public ResponseEntity<List<UserDto>> searchByUsername(@CookieValue("auth_by_cookie") @NotNull String cookie, @RequestParam(value = "pattern") String pattern) {
+        String loggedUser = this.jwtTokenUtil.getUsernameFromToken(cookie);
+        List<UserDto> foundUsers =  this.userService.searchByUsernamePattern(pattern, loggedUser);
+        return new ResponseEntity<>(foundUsers, HttpStatus.OK);
+    }
 
     private UserDao mapDtoToModel(CreateUserDto createUserDto) {
         UserDao user = new UserDao();

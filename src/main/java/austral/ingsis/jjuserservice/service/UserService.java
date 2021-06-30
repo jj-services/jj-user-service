@@ -6,6 +6,7 @@ import austral.ingsis.jjuserservice.exception.UserNotFoundException;
 import austral.ingsis.jjuserservice.model.UserDao;
 import austral.ingsis.jjuserservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -89,5 +90,9 @@ public class UserService {
         UserDao user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
       return user.toUserDto();
+    }
+
+    public List<UserDto> searchByUsernamePattern(String pattern, String loggedUser) {
+        return userRepository.findByUsernamePattern(pattern).stream().filter(found -> !found.getUsername().equals(loggedUser)).map(UserDao::toUserDto).collect(Collectors.toList());
     }
 }

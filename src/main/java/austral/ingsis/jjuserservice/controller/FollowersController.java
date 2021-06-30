@@ -4,7 +4,6 @@ import austral.ingsis.jjuserservice.dto.FollowerDto;
 import austral.ingsis.jjuserservice.dto.UserDto;
 import austral.ingsis.jjuserservice.exception.FollowerNotFoundException;
 import austral.ingsis.jjuserservice.model.Follower;
-import austral.ingsis.jjuserservice.repository.FollowersRepository;
 import austral.ingsis.jjuserservice.service.FollowersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
