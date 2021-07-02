@@ -9,6 +9,15 @@ public class UserDto {
     private String email;
     private String firstName;
     private String lastName;
+    List<PostDto> postDto;
+
+    public List<PostDto> getPostDto() {
+        return postDto;
+    }
+
+    public void setPostDto(List<PostDto> postDto) {
+        this.postDto = postDto;
+    }
 
     public UserDto(Long id, String firstName, String lastName, String username, String email) {
         this.id = id;
