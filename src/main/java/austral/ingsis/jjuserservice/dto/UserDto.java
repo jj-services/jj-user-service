@@ -9,7 +9,6 @@ public class UserDto {
     private String email;
     private String firstName;
     private String lastName;
-    private List<PostDto> posts;
 
     public UserDto(Long id, String firstName, String lastName, String username, String email) {
         this.id = id;
@@ -49,14 +48,6 @@ public class UserDto {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public List<PostDto> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<PostDto> posts) {
-        this.posts = posts;
     }
 
     public Long getId() {
