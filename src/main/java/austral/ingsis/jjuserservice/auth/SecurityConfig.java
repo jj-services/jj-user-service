@@ -1,5 +1,6 @@
 package austral.ingsis.jjuserservice.auth;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,6 +13,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static java.util.Collections.singletonList;
@@ -20,6 +22,8 @@ import static java.util.Collections.singletonList;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Value("${app.origin}")
+    private String prodOrigin;
 
     public SecurityConfig() {
     }
@@ -46,8 +50,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        List<String> allowOrigins = Arrays.asList("*");
-        configuration.setAllowedOrigins(allowOrigins);
+        List<String> allowOrigins = singletonList(prodOrigin);
+        configuration.setAllowedOriginPatterns(allowOrigins);
         configuration.setAllowedMethods(singletonList("*"));
         configuration.setAllowedHeaders(singletonList("*"));
         //in case authentication is enabled this flag MUST be set, otherwise CORS requests will fail
