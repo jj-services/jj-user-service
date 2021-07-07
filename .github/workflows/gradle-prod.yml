@@ -45,7 +45,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           username: ${{ secrets.PROD_VM_USERNAME }}
-          host: 52.188.49.213
+          host: 40.117.233.69
           key: ${{ secrets.PROD_VM_KEY }}
           script: |
             cd jj-infra
