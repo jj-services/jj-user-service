@@ -19,7 +19,6 @@ public class LoginDto {
     public LoginDto(String username, String password) {
         this.username = username;
         this.password = password;
-
     }
 
     public String getUsername() {
