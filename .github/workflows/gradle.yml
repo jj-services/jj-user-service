@@ -35,20 +35,20 @@ jobs:
           file: ./Dockerfile.multi
           push: true
           tags: docker.pkg.github.com/${{ github.repository }}/${{ env.IMAGE_NAME }}:latest
-#
-#  azure-cd:
-#    needs: push_to_registry
-#    name: Deploy to Azure VM
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Connecting with SSH to Azure VM
-#        uses: appleboy/ssh-action@master
-#        with:
-#          username: ${{ secrets.VM_USERNAME }}
-#          host: 52.188.49.213
-#          key: ${{ secrets.VM_KEY }}
-#          script: |
-#            cd jj-infra
-#            sudo docker stop jibber-jabber-client
-#            sudo docker pull docker.pkg.github.com/matiasferron/jj-front/dev-jj-fe:latest
-#            sudo docker-compose up -d client
+
+  azure-cd:
+    needs: build_and_push_to_registry
+    name: Deploy to Azure VM
+    runs-on: ubuntu-latest
+    steps:
+      - name: Connecting with SSH to Azure VM
+        uses: appleboy/ssh-action@master
+        with:
+          username: ${{ secrets.VM_USERNAME }}
+          host: 52.188.49.213
+          key: ${{ secrets.VM_KEY }}
+          script: |
+            cd jj-infra
+            sudo docker stop jj-user
+            sudo docker pull docker.pkg.github.com/jj-services/jj-user-service/dev-jj-user-service:latest
+            sudo docker-compose up -d jj-user
