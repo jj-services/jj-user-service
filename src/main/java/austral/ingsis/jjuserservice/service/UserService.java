@@ -1,5 +1,6 @@
 package austral.ingsis.jjuserservice.service;
 
+import austral.ingsis.jjuserservice.dto.ChatUserDto;
 import austral.ingsis.jjuserservice.dto.UpdateUserDto;
 import austral.ingsis.jjuserservice.dto.UserDto;
 import austral.ingsis.jjuserservice.exception.UserNotFoundException;
@@ -98,4 +99,5 @@ public class UserService {
                     .map(UserDao::toUserDto).collect(Collectors.toList());
 //        return null;
     }
+
 }
