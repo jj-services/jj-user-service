@@ -34,7 +34,7 @@ public class UserController {
         List<UserDto> users = this.userService.getAllUsers();
         //TODO response headers
         return new ResponseEntity<>(users, HttpStatus.OK);
-    })
+    }
 
 //    @GetMapping(value = "/{id}")
 //    public ResponseEntity<UserDto> getUserById(@PathVariable("id") String id ) {
