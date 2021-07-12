@@ -4,19 +4,35 @@ import java.util.List;
 
 public class UserDto {
     //response for a get and update request
-    private String id;
+    private Long id;
     private String username;
     private String email;
     private String firstName;
     private String lastName;
-    private List<PostDto> posts;
+    List<PostDto> postDto;
 
-    public UserDto(String id, String username, String email, String firstName, String lastName) {
+    public List<PostDto> getPostDto() {
+        return postDto;
+    }
+
+    public void setPostDto(List<PostDto> postDto) {
+        this.postDto = postDto;
+    }
+
+    public UserDto(Long id, String firstName, String lastName, String username, String email) {
         this.id = id;
-        this.username = username;
-        this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -43,27 +59,11 @@ public class UserDto {
         this.lastName = lastName;
     }
 
-    public List<PostDto> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<PostDto> posts) {
-        this.posts = posts;
-    }
-
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 }

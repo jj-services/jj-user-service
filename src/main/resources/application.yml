@@ -1,0 +1,16 @@
+auth.cookie.hmac-key: my-sectet-key
+
+spring:
+  datasource:
+    platform: postgres
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://db-users:5432/jibberjabberdb
+    username: jibberjabber
+    password: jibberjabber
+    initialization-mode: always
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: false
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update

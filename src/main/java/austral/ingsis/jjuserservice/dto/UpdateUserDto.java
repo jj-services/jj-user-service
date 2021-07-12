@@ -1,28 +1,34 @@
 package austral.ingsis.jjuserservice.dto;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-public class CreateUserDto {
-    //response should be id
-    @NotEmpty
+public class UpdateUserDto {
+    private Long id;
     @Size(min = 4, message = "username should have at least 4 characters")
     private String username;
-
-    @NotEmpty
+    @Email
+    private String email;
+    private String firstName;
+    private String lastName;
     @Size(min = 6, message = "password should have at least 6 characters")
     private String password;
 
-    @NotEmpty
-    @Email
-    private String email;
+    public UpdateUserDto(Long id, String username, String email, String firstName, String lastName) {
+        this.id = id;
+        this.username = username;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
-    @NotEmpty
-    private String firstName;
+    public Long getId() {
+        return id;
+    }
 
-    @NotEmpty
-    private String lastName;
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
@@ -30,14 +36,6 @@ public class CreateUserDto {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getEmail() {
@@ -62,5 +60,13 @@ public class CreateUserDto {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
