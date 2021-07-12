@@ -1,7 +1,6 @@
 package austral.ingsis.jjuserservice.controller;
 
 import austral.ingsis.jjuserservice.auth.JwtTokenUtil;
-import austral.ingsis.jjuserservice.dto.ChatUserDto;
 import austral.ingsis.jjuserservice.dto.CreateUserDto;
 import austral.ingsis.jjuserservice.dto.UpdateUserDto;
 import austral.ingsis.jjuserservice.dto.UserDto;
