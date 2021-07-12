@@ -1,5 +1,6 @@
 package austral.ingsis.jjuserservice.service;
 
+import austral.ingsis.jjuserservice.dto.ChatUserDto;
 import austral.ingsis.jjuserservice.dto.FollowerDto;
 import austral.ingsis.jjuserservice.dto.UserDto;
 import austral.ingsis.jjuserservice.exception.UserNotFoundException;
@@ -44,5 +45,13 @@ public class FollowersService {
         toDelete.ifPresentOrElse(value -> this.followersRepository.deleteById(value.getId()),
                 () -> { throw new UserNotFoundException("Follower entity not found.");}
         );
+    }
+
+    public ChatUserDto getMeAndFollowedContacts(String username) {
+        UserDto userDto = this.userService.getUserByUsername(username);
+        List<UserDto> followedUsers = this.getFollowedUsersForUser(userDto.getId());
+
+        return new ChatUserDto(userDto, followedUsers);
+
     }
 }
